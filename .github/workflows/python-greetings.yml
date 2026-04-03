@@ -25,19 +25,37 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   install-pip-deps:
-    # The type of runner that the job will run on
     runs-on: self-hosted
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Installing pip dependencies.
+        
+      - name: Call actions repository
+        uses: actions/checkout@v6
+        
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/python-greetings
+          path: python-greetings
+          
+      - name: Create-virtual-environment
+        working-directory: python-greetings
+        run: python -m venv venv
+        
+      - name: Install-libraries
+        working-directory: python-greetings
+        run: .\venv\Scripts\python -m pip install -r requirements.txt
+        
   deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
     steps:
       - name: Check node version
-        run: node --version
+        run: echo Deploying to dev.
+        
   tests-on-dev:
     needs: deploy-to-dev
     # The type of runner that the job will run on
@@ -45,8 +63,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Testing on dev.
+        
   deploy-to-stg:
     needs: tests-on-dev
     # The type of runner that the job will run on
@@ -54,8 +73,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Deploying to staging.
+        
   tests-on-stg:
     needs: deploy-to-stg
     # The type of runner that the job will run on
@@ -63,8 +83,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Testing on staging.
+        
   deploy-to-preprod:
     needs: tests-on-stg
     # The type of runner that the job will run on
@@ -72,8 +93,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Deploying to preprod
+        
   tests-on-preprod:
     needs: deploy-to-preprod
     # The type of runner that the job will run on
@@ -81,8 +103,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Testing on preprod.
+        
   deploy-to-prod:
     needs: tests-on-preprod
     # The type of runner that the job will run on
@@ -90,8 +113,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Deploying to prod.
+        
   tests-on-prod:
     needs: deploy-to-prod
     # The type of runner that the job will run on
@@ -99,5 +123,5 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!, ${{ inputs.name }}!
+      - name: Print-info
+        run: echo Testing on prod.
