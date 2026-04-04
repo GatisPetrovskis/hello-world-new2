@@ -32,7 +32,7 @@ jobs:
       - name: Print-info
         run: echo Installing pip dependencies.
         
-      - name: Call actions repository
+      - name: Call-actions-repository
         uses: actions/checkout@v6
         
       - name: Repository-cloning
@@ -53,9 +53,27 @@ jobs:
     needs: install-pip-deps
     runs-on: self-hosted
     steps:
-      - name: Check node version
+      - name: Print-info
         run: echo Deploying to dev.
         
+      - name: Call actions repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/python-greetings
+          path: python-greetings
+
+      - name: Stop-existing-service
+        shell: cmd
+        working-directory: python-greetings
+        run: pm2 delete greetings-app-dev & set "errorlevel=0"
+
+      - name: Start-service
+        working-directory: python-greetings
+        run: pm2 start venv\Scripts\python --name greetings-app-dev -- app.py --port=7001 --env=dev
+          
   tests-on-dev:
     needs: deploy-to-dev
     # The type of runner that the job will run on
@@ -75,6 +93,24 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Deploying to staging.
+
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/python-greetings
+          path: python-greetings
+          
+      - name: Stop-stg-service
+        shell: cmd
+        working-directory: python-greetings
+        run: pm2 delete greetings-app-stg & set "errorlevel=0"
+
+      - name: Start-stg-service
+        working-directory: python-greetings
+        run: pm2 start venv\Scripts\python --name greetings-app-stg -- app.py --port=7002 --env=stg
         
   tests-on-stg:
     needs: deploy-to-stg
@@ -95,7 +131,25 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Deploying to preprod
-        
+
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/python-greetings
+          path: python-greetings
+
+      - name: Stop-preprod-service
+        shell: cmd
+        working-directory: python-greetings
+        run: pm2 delete greetings-app-preprod & set "errorlevel=0"
+
+      - name: Start-preprod-service
+        working-directory: python-greetings
+        run: pm2 start venv\Scripts\python --name greetings-app-preprod -- app.py --port=7003 --env=preprod
+
   tests-on-preprod:
     needs: deploy-to-preprod
     # The type of runner that the job will run on
@@ -115,6 +169,24 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Deploying to prod.
+
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/python-greetings
+          path: python-greetings
+
+      - name: Stop-prod-service
+        shell: cmd
+        working-directory: python-greetings
+        run: pm2 delete greetings-app-prod & set "errorlevel=0"
+
+      - name: Start-prod-service
+        working-directory: python-greetings
+        run: pm2 start venv\Scripts\python --name greetings-app-prod -- app.py --port=7004 --env=prod
         
   tests-on-prod:
     needs: deploy-to-prod
