@@ -79,8 +79,9 @@ jobs:
         run: pm2 delete greetings-app-dev & set "errorlevel=0"
 
       - name: Start-service
+        shell: cmd
         working-directory: python-greetings
-        run: pm2 start app.py --name greetings-app-dev --interpreter venv\Scripts\python.exe -- --port 7001
+        run: set PORT=7001 && pm2 start app.py --name greetings-app-dev --interpreter venv\Scripts\python.exe
           
   tests-on-dev:
     needs: deploy-to-dev
@@ -125,8 +126,9 @@ jobs:
         run: pm2 delete greetings-app-stg & set "errorlevel=0"
 
       - name: Start-stg-service
+        shell: cmd
         working-directory: python-greetings
-        run: pm2 start app.py --name greetings-app-stg --interpreter venv\Scripts\python.exe -- --port 7002
+        run: set PORT=7002 && pm2 start app.py --name greetings-app-stg --interpreter venv\Scripts\python.exe
         
   tests-on-stg:
     needs: deploy-to-stg
@@ -171,8 +173,9 @@ jobs:
         run: pm2 delete greetings-app-preprod & set "errorlevel=0"
 
       - name: Start-preprod-service
+        shell: cmd
         working-directory: python-greetings
-        run: pm2 start app.py --name greetings-app-preprod --interpreter venv\Scripts\python.exe -- --port 7003
+        run: set PORT=7003 && pm2 start app.py --name greetings-app-preprod --interpreter venv\Scripts\python.exe
 
   tests-on-preprod:
     needs: deploy-to-preprod
@@ -217,8 +220,9 @@ jobs:
         run: pm2 delete greetings-app-prod & set "errorlevel=0"
 
       - name: Start-prod-service
+        shell: cmd
         working-directory: python-greetings
-        run: pm2 start app.py --name greetings-app-prod --interpreter venv\Scripts\python.exe -- --port 7004
+        run: set PORT=7004 && pm2 start app.py --name greetings-app-prod --interpreter venv\Scripts\python.exe
         
   tests-on-prod:
     needs: deploy-to-prod
