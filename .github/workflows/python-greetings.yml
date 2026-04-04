@@ -80,7 +80,7 @@ jobs:
 
       - name: Start-service
         working-directory: python-greetings
-        run: pm2 start venv\Scripts\python --name greetings-app-dev -- app.py --port=7001 --env=dev
+        run: pm2 start app.py --name greetings-app-dev --interpreter venv\Scripts\python.exe -- --port 7001
           
   tests-on-dev:
     needs: deploy-to-dev
@@ -126,7 +126,7 @@ jobs:
 
       - name: Start-stg-service
         working-directory: python-greetings
-        run: pm2 start venv\Scripts\python --name greetings-app-stg -- app.py --port=7002 --env=stg
+        run: pm2 start app.py --name greetings-app-stg --interpreter venv\Scripts\python.exe -- --port 7002
         
   tests-on-stg:
     needs: deploy-to-stg
@@ -146,7 +146,7 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Print-info
-        run: echo Deploying to preprod
+        run: echo Deploying to preprod.
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
@@ -172,7 +172,7 @@ jobs:
 
       - name: Start-preprod-service
         working-directory: python-greetings
-        run: pm2 start venv\Scripts\python --name greetings-app-preprod -- app.py --port=7003 --env=preprod
+        run: pm2 start app.py --name greetings-app-preprod --interpreter venv\Scripts\python.exe -- --port 7003
 
   tests-on-preprod:
     needs: deploy-to-preprod
@@ -218,7 +218,7 @@ jobs:
 
       - name: Start-prod-service
         working-directory: python-greetings
-        run: pm2 start venv\Scripts\python --name greetings-app-prod -- app.py --port=7004 --env=prod
+        run: pm2 start app.py --name greetings-app-prod --interpreter venv\Scripts\python.exe -- --port 7004
         
   tests-on-prod:
     needs: deploy-to-prod
