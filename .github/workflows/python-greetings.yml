@@ -56,7 +56,7 @@ jobs:
       - name: Print-info
         run: echo Deploying to dev.
         
-      - name: Call actions repository
+      - name: Call-actions-repository
         uses: actions/checkout@v6
 
       - name: Repository-cloning
@@ -77,11 +77,16 @@ jobs:
         shell: cmd
         working-directory: python-greetings
         run: pm2 delete greetings-app-dev & set "errorlevel=0"
+        
+      - name: Check-interpreter-path
+        shell: cmd
+        working-directory: python-greetings
+        run: dir "%CD%\venv\Scripts\python.exe"
 
       - name: Start-service
         shell: cmd
         working-directory: python-greetings
-        run: set PORT=7001 && pm2 start app.py --name greetings-app-dev --interpreter venv\Scripts\python.exe
+        run: set PORT=7001 && pm2 start app.py --name greetings-app-dev --interpreter "%CD%\venv\Scripts\python.exe"
           
   tests-on-dev:
     needs: deploy-to-dev
@@ -128,7 +133,7 @@ jobs:
       - name: Start-stg-service
         shell: cmd
         working-directory: python-greetings
-        run: set PORT=7002 && pm2 start app.py --name greetings-app-stg --interpreter venv\Scripts\python.exe
+        run: set PORT=7002 && pm2 start app.py --name greetings-app-stg --interpreter "%CD%\venv\Scripts\python.exe"
         
   tests-on-stg:
     needs: deploy-to-stg
@@ -175,7 +180,7 @@ jobs:
       - name: Start-preprod-service
         shell: cmd
         working-directory: python-greetings
-        run: set PORT=7003 && pm2 start app.py --name greetings-app-preprod --interpreter venv\Scripts\python.exe
+        run: set PORT=7003 && pm2 start app.py --name greetings-app-preprod --interpreter "%CD%\venv\Scripts\python.exe"
 
   tests-on-preprod:
     needs: deploy-to-preprod
@@ -222,7 +227,7 @@ jobs:
       - name: Start-prod-service
         shell: cmd
         working-directory: python-greetings
-        run: set PORT=7004 && pm2 start app.py --name greetings-app-prod --interpreter venv\Scripts\python.exe
+        run: set PORT=7004 && pm2 start app.py --name greetings-app-prod --interpreter "%CD%\venv\Scripts\python.exe"
         
   tests-on-prod:
     needs: deploy-to-prod
