@@ -11,21 +11,33 @@ jobs:
   install-pip-deps:
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Installing pip dependencies.
 
       - name: Install Python dependencies
-        uses: ./.github/actions/install-python-deps
+        uses: ./pipeline/.github/actions/install-python-deps
 
   deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Deploying to dev.
 
       - name: Deploy to dev
-        uses: ./.github/actions/deploy-python-service
+        uses: ./pipeline/.github/actions/deploy-python-service
         with:
           env_name: dev
           port: 7001
@@ -34,11 +46,17 @@ jobs:
     needs: deploy-to-dev
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Testing on dev.
 
       - name: Run dev tests
-        uses: ./.github/actions/test-greetings
+        uses: ./pipeline/.github/actions/test-greetings
         with:
           env_name: dev
 
@@ -46,11 +64,17 @@ jobs:
     needs: tests-on-dev
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Deploying to stg.
 
       - name: Deploy to stg
-        uses: ./.github/actions/deploy-python-service
+        uses: ./pipeline/.github/actions/deploy-python-service
         with:
           env_name: stg
           port: 7002
@@ -59,11 +83,17 @@ jobs:
     needs: deploy-to-stg
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Testing on stg.
 
       - name: Run stg tests
-        uses: ./.github/actions/test-greetings
+        uses: ./pipeline/.github/actions/test-greetings
         with:
           env_name: stg
 
@@ -71,11 +101,17 @@ jobs:
     needs: tests-on-stg
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Deploying to preprod.
 
       - name: Deploy to preprod
-        uses: ./.github/actions/deploy-python-service
+        uses: ./pipeline/.github/actions/deploy-python-service
         with:
           env_name: preprod
           port: 7003
@@ -84,11 +120,17 @@ jobs:
     needs: deploy-to-preprod
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Testing on preprod.
 
       - name: Run preprod tests
-        uses: ./.github/actions/test-greetings
+        uses: ./pipeline/.github/actions/test-greetings
         with:
           env_name: preprod
 
@@ -96,11 +138,17 @@ jobs:
     needs: tests-on-preprod
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Deploying to prod.
 
       - name: Deploy to prod
-        uses: ./.github/actions/deploy-python-service
+        uses: ./pipeline/.github/actions/deploy-python-service
         with:
           env_name: prod
           port: 7004
@@ -109,10 +157,16 @@ jobs:
     needs: deploy-to-prod
     runs-on: self-hosted
     steps:
+      - name: Checkout pipeline repository
+        uses: actions/checkout@v6
+        with:
+          path: pipeline
+          clean: false
+
       - name: Print-info
         run: echo Testing on prod.
 
       - name: Run prod tests
-        uses: ./.github/actions/test-greetings
+        uses: ./pipeline/.github/actions/test-greetings
         with:
           env_name: prod
