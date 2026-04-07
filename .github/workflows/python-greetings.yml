@@ -82,6 +82,29 @@ jobs:
         shell: cmd
         working-directory: python-greetings
         run: set PORT=7001 && pm2 start app.py --name greetings-app-dev --interpreter "%CD%\venv\Scripts\python.exe"
+
+      - name: Wait-for-dev-service
+        shell: powershell
+        working-directory: python-greetings
+        run: |
+          $maxAttempts = 15
+          $attempt = 0
+          do {
+            $attempt++
+            Start-Sleep -Seconds 2
+            try {
+              $response = Invoke-WebRequest -Uri "http://127.0.0.1:7001/greetings" -UseBasicParsing -TimeoutSec 5
+              if ($response.StatusCode -eq 200) {
+                Write-Output "Dev service is ready."
+                exit 0
+              }
+            } catch {
+              Write-Output "Dev service not ready yet. Attempt $attempt of $maxAttempts."
+            }
+          } while ($attempt -lt $maxAttempts)
+
+          Write-Error "Dev service did not become ready in time."
+          exit 1
           
   tests-on-dev:
     needs: deploy-to-dev
