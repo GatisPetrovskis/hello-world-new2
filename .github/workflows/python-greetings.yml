@@ -77,11 +77,6 @@ jobs:
         shell: cmd
         working-directory: python-greetings
         run: pm2 delete greetings-app-dev & set "errorlevel=0"
-        
-      - name: Check-interpreter-path
-        shell: cmd
-        working-directory: python-greetings
-        run: dir "%CD%\venv\Scripts\python.exe"
 
       - name: Start-service
         shell: cmd
