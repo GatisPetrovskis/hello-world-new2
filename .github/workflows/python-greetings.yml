@@ -1,4 +1,6 @@
+# This is a basic workflow to help you get started with Actions
 name: Python greetings
+
 
 on:
   push:
@@ -23,6 +25,7 @@ jobs:
       - name: Install Python dependencies
         uses: ./pipeline/.github/actions/install-python-deps
 
+
   deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
@@ -34,7 +37,7 @@ jobs:
           clean: false
 
       - name: Print-info
-        run: echo Deploying to dev.
+        run: echo Deploying to  dev.
 
       - name: Deploy to dev
         uses: ./pipeline/.github/actions/deploy-python-service
@@ -120,6 +123,7 @@ jobs:
     needs: deploy-to-preprod
     runs-on: self-hosted
     steps:
+      # Runs a single command using the runners shell
       - name: Checkout pipeline repository
         uses: actions/checkout@v6
         with:
