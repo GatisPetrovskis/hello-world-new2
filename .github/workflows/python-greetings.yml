@@ -85,13 +85,28 @@ jobs:
           
   tests-on-dev:
     needs: deploy-to-dev
-    # The type of runner that the job will run on
     runs-on: self-hosted
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Runs a single command using the runners shell
+    
       - name: Print-info
         run: echo Testing on dev.
+
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
+
+      - name: Install-libraries
+        working-directory: course-js-api-framework
+        run: npm install
+
+      - name: Run-tests-dev
+        working-directory: course-js-api-framework
+        run: npm run greetings greetings_dev
         
   deploy-to-stg:
     needs: tests-on-dev
@@ -132,13 +147,29 @@ jobs:
         
   tests-on-stg:
     needs: deploy-to-stg
-    # The type of runner that the job will run on
     runs-on: self-hosted
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Runs a single command using the runners shell
       - name: Print-info
         run: echo Testing on staging.
+        
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
+
+      - name: Install-libraries
+        working-directory: course-js-api-framework
+        run: npm install
+
+      - name: Run-tests-stg
+        working-directory: course-js-api-framework
+        run: npm run greetings greetings_stg
+
+      
         
   deploy-to-preprod:
     needs: tests-on-stg
@@ -179,13 +210,28 @@ jobs:
 
   tests-on-preprod:
     needs: deploy-to-preprod
-    # The type of runner that the job will run on
     runs-on: self-hosted
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Runs a single command using the runners shell
+
       - name: Print-info
         run: echo Testing on preprod.
+
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
+
+      - name: Install-node-libraries
+        working-directory: course-js-api-framework
+        run: npm install
+
+      - name: Run-tests-preprod
+        working-directory: course-js-api-framework
+        run: npm run greetings greetings_preprod  
         
   deploy-to-prod:
     needs: tests-on-preprod
@@ -226,10 +272,26 @@ jobs:
         
   tests-on-prod:
     needs: deploy-to-prod
-    # The type of runner that the job will run on
     runs-on: self-hosted
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Testing on prod.
+
+      - name: Call-actions-repository
+        uses: actions/checkout@v6
+
+      - name: Repository-cloning
+        uses: actions/checkout@v6
+        with:
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
+
+      - name: Install-node-libraries
+        working-directory: course-js-api-framework
+        run: npm install
+
+      - name: Run-tests-prod
+        working-directory: course-js-api-framework
+        run: npm run greetings greetings_prod
+        
