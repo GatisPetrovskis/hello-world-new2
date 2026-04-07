@@ -129,7 +129,7 @@ jobs:
 
       - name: Run-tests-dev
         working-directory: course-js-api-framework
-        run: npm run greetings greetings_dev
+        run: npm run greetings -- greetings_dev
         
   deploy-to-stg:
     needs: tests-on-dev
@@ -190,9 +190,9 @@ jobs:
 
       - name: Run-tests-stg
         working-directory: course-js-api-framework
-        run: npm run greetings greetings_stg
+        run: npm run greetings -- greetings_stg
 
-      
+
         
   deploy-to-preprod:
     needs: tests-on-stg
@@ -254,7 +254,7 @@ jobs:
 
       - name: Run-tests-preprod
         working-directory: course-js-api-framework
-        run: npm run greetings greetings_preprod  
+        run: npm run greetings -- greetings_preprod  
         
   deploy-to-prod:
     needs: tests-on-preprod
@@ -316,5 +316,5 @@ jobs:
 
       - name: Run-tests-prod
         working-directory: course-js-api-framework
-        run: npm run greetings greetings_prod
+        run: npm run greetings -- greetings_prod
         
