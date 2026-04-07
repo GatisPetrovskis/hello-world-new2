@@ -1,0 +1,22 @@
+name: Install Python dependencies
+description: Clone python-greetings repo, create venv and install requirements
+
+runs:
+  using: "composite"
+  steps:
+    - name: Repository-cloning
+      uses: actions/checkout@v6
+      with:
+        repository: mtararujs/python-greetings
+        path: python-greetings
+        clean: false
+
+    - name: Create-virtual-environment
+      shell: powershell
+      working-directory: python-greetings
+      run: python -m venv venv
+
+    - name: Install-libraries
+      shell: powershell
+      working-directory: python-greetings
+      run: .\venv\Scripts\python -m pip install -r requirements.txt
