@@ -31,11 +31,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Installing pip dependencies.
-        
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
+      
           
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -58,11 +54,7 @@ jobs:
     steps:
       - name: Print-info
         run: echo Deploying to dev.
-        
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
+
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -120,10 +112,7 @@ jobs:
       - name: Print-info
         run: echo Testing on dev.
 
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
+
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -149,11 +138,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Deploying to staging.
-
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -187,10 +171,6 @@ jobs:
       - name: Print-info
         run: echo Testing on staging.
         
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -219,10 +199,6 @@ jobs:
       - name: Print-info
         run: echo Deploying to preprod.
 
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -257,10 +233,6 @@ jobs:
       - name: Print-info
         run: echo Testing on preprod.
 
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -286,11 +258,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print-info
         run: echo Deploying to prod.
-
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
@@ -325,10 +292,6 @@ jobs:
       - name: Print-info
         run: echo Testing on prod.
 
-      - name: Call-actions-repository
-        uses: actions/checkout@v6
-        with:
-          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
