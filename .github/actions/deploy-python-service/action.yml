@@ -1,0 +1,40 @@
+name: Deploy Python service
+description: Clone python-greetings repo, prepare venv, stop old PM2 process and start service
+
+inputs:
+  env_name:
+    description: Environment name
+    required: true
+  port:
+    description: Port number
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Repository-cloning
+      uses: actions/checkout@v6
+      with:
+        repository: mtararujs/python-greetings
+        path: python-greetings
+        clean: false
+
+    - name: Create-virtual-environment
+      shell: powershell
+      working-directory: python-greetings
+      run: python -m venv venv
+
+    - name: Install-libraries
+      shell: powershell
+      working-directory: python-greetings
+      run: .\venv\Scripts\python -m pip install -r requirements.txt
+
+    - name: Stop-existing-service
+      shell: cmd
+      working-directory: python-greetings
+      run: pm2 delete greetings-app-${{ inputs.env_name }} & set "errorlevel=0"
+
+    - name: Start-service
+      shell: cmd
+      working-directory: python-greetings
+      run: set PORT=${{ inputs.port }} && set RUNNER_TRACKING_ID= && pm2 start app.py --name greetings-app-${{ inputs.env_name }} --interpreter "%CD%\venv\Scripts\python.exe"
