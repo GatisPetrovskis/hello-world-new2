@@ -1,16 +1,11 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Python greetings
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
       name:
@@ -19,10 +14,7 @@ on:
         description: 'Name input'
         required: true
         
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   install-pip-deps:
     runs-on: self-hosted
     
@@ -80,28 +72,6 @@ jobs:
         working-directory: python-greetings
         run: set PORT=7001 && set RUNNER_TRACKING_ID= && pm2 start app.py --name greetings-app-dev --interpreter "%CD%\venv\Scripts\python.exe"
 
-      - name: Wait-for-dev-service
-        shell: powershell
-        working-directory: python-greetings
-        run: |
-          $maxAttempts = 15
-          $attempt = 0
-          do {
-            $attempt++
-            Start-Sleep -Seconds 2
-            try {
-              $response = Invoke-WebRequest -Uri "http://127.0.0.1:7001/greetings" -UseBasicParsing -TimeoutSec 5
-              if ($response.StatusCode -eq 200) {
-                Write-Output "Dev service is ready."
-                exit 0
-              }
-            } catch {
-              Write-Output "Dev service not ready yet. Attempt $attempt of $maxAttempts."
-            }
-          } while ($attempt -lt $maxAttempts)
-
-          Write-Error "Dev service did not become ready in time."
-          exit 1
           
   tests-on-dev:
     needs: deploy-to-dev
