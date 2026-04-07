@@ -1,0 +1,27 @@
+name: Test greetings service
+description: Clone course-js-api-framework repo, install npm dependencies and run greetings tests
+
+inputs:
+  env_name:
+    description: Environment name
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Repository-cloning
+      uses: actions/checkout@v6
+      with:
+        repository: mtararujs/course-js-api-framework
+        path: course-js-api-framework
+        clean: false
+
+    - name: Install-node-libraries
+      shell: powershell
+      working-directory: course-js-api-framework
+      run: npm install
+
+    - name: Run-tests
+      shell: powershell
+      working-directory: course-js-api-framework
+      run: npm run greetings -- greetings_${{ inputs.env_name }}
