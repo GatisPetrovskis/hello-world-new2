@@ -34,12 +34,15 @@ jobs:
         
       - name: Call-actions-repository
         uses: actions/checkout@v6
-        
+        with:
+          clean: false
+          
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
+          clean: false
           
       - name: Create-virtual-environment
         working-directory: python-greetings
@@ -58,12 +61,15 @@ jobs:
         
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
+          clean: false
 
       - name: Create-virtual-environment
         working-directory: python-greetings
@@ -116,12 +122,15 @@ jobs:
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
+          clean: false
 
       - name: Install-libraries
         working-directory: course-js-api-framework
@@ -143,12 +152,15 @@ jobs:
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
+          clean: false
 
       - name: Create-virtual-environment
         working-directory: python-greetings
@@ -177,12 +189,15 @@ jobs:
         
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
+          clean: false
 
       - name: Install-libraries
         working-directory: course-js-api-framework
@@ -206,12 +221,15 @@ jobs:
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
+          clean: false
 
       - name: Create-virtual-environment
         working-directory: python-greetings
@@ -241,12 +259,15 @@ jobs:
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
+          clean: false
 
       - name: Install-node-libraries
         working-directory: course-js-api-framework
@@ -268,12 +289,15 @@ jobs:
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
+          clean: false
 
       - name: Create-virtual-environment
         working-directory: python-greetings
@@ -303,12 +327,15 @@ jobs:
 
       - name: Call-actions-repository
         uses: actions/checkout@v6
+        with:
+          clean: false
 
       - name: Repository-cloning
         uses: actions/checkout@v6
         with:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
+          clean: false
 
       - name: Install-node-libraries
         working-directory: course-js-api-framework
